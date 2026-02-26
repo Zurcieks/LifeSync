@@ -24,6 +24,9 @@ dist/
 # Environment / Secrets
 .env
 .env.*
+**/appsettings.json
+**/appsettings.*.json
+!**/appsettings.Example.json
 
 # OS
 .DS_Store
