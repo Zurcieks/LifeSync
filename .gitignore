@@ -8,7 +8,6 @@ publish/
 *.sln.docstates
 *.nupkg
 *.snupkg
-*.appsettings.json
 
 # Node / React
 node_modules/
