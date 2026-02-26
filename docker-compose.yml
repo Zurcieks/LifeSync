@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: lifesync
+      POSTGRES_USER: lifesync
+      POSTGRES_PASSWORD: lifesync_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lifesync"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build:
+      context: ./server/LifeSync.Api
+    ports:
+      - "5001:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=lifesync;Username=lifesync;Password=lifesync_dev"
+      Jwt__Key: "LifeSyncSuperSecretKeyThatIsAtLeast32BytesLong!"
+      Jwt__Issuer: "LifeSync.Api"
+      Jwt__Audience: "LifeSync.Client"
+      Jwt__AccessTokenExpiresInMinutes: "30"
+      Jwt__RefreshTokenExpiresInDays: "7"
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

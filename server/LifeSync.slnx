@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="LifeSync.Api.Tests/LifeSync.Api.Tests.csproj" />
+  <Project Path="LifeSync.Api/LifeSync.Api.csproj" />
+</Solution>
