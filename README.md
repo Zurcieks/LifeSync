@@ -41,13 +41,6 @@ The database gets migrated and seeded automatically on first run.
 
 You'll need .NET 10 SDK, Node.js 22+, and PostgreSQL.
 
-**Database:**
-
-```sql
-CREATE USER lifesync WITH PASSWORD 'lifesync_dev';
-CREATE DATABASE lifesync OWNER lifesync;
-```
-
 **Backend:**
 
 ```bash
